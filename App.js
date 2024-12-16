@@ -3,9 +3,7 @@ import { Text, View } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
-import * HomeScreen from './Home.tsx';
-import * masukScreen from './masuk.tsx';
-import * RiwayatScreen from './Riwayat absensi.tsx';
+
  
 
 // Keep the splash screen visible while we fetch resources
@@ -65,14 +63,3 @@ export default function App() {
 }
  
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="HomeScreen">
-        <Stack.Screen name="HomeScreen" component={HomeScreen}  />
-        <Stack.Screen name="MasukScreen" component={AbsensiMasukScreen} options={{ title: 'Absensi Masuk' }} />
-        <Stack.Screen name="Riwayatabsensi" component={RiwayatabsensiScreen} options={{ title: 'Riwayat Absensi' }} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}

@@ -10,7 +10,9 @@ export default function HomeScreen() {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <FontAwesome name="bars" size={30} color="#4E342E" style={styles.menuIcon} />
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}> 
+          <FontAwesome name="bars" size={30} color="#4E342E" style={styles.menuIcon} />
+        </TouchableOpacity>
         <Text style={styles.greeting}>Selamat Pagi</Text>
         <FontAwesome name="user-circle" size={40} color="#4E342E" />
       </View>
@@ -37,10 +39,10 @@ export default function HomeScreen() {
 
       {/* Navigation Bar */}
       <View style={styles.navBar}>
-        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <FontAwesome name="home" size={30} color="#4E342E" />
+        <TouchableOpacity onPress={() => navigation.navigate('')}>
+          <FontAwesome  name="camera" size={30} color="#4E342E" />
         </TouchableOpacity> 
-        <TouchableOpacity> 
+        <TouchableOpacity onPress={() => navigation.navigate('User')}> 
           <FontAwesome name="user" size={30} color="#4E342E" />
         </TouchableOpacity>
       </View>

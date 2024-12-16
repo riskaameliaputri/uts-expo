@@ -7,10 +7,10 @@ const UserProfileScreen = () => {
 
   // Data User
   const user = {
-    name: 'Rina Setiawati',
+    name: 'Riska Amelia',
     role: 'Mahasiswa',
-    email: 'rina.setiawati@example.com',
-    nim: '1234567890',
+    email: 'riskaameliaputri197@gmail.com',
+    nim: '2021020100057',
     avatar: 'https://i.pravatar.cc/150?img=45', // Placeholder image
   };
 

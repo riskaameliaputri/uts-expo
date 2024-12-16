@@ -77,7 +77,7 @@ export default function AbsensiMasukScreen() {
         onChangeText={setRuangan}
       />
 
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Riwayat absensi')}>
         <Text style={styles.buttonText}>Kirim Absensi</Text>
       </TouchableOpacity>
     </View>

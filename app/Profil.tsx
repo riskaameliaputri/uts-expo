@@ -1,8 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export default function ProfileScreen() {
+  const router = useRouter(); // Menggunakan router untuk navigasi
+
   return (
     <View style={styles.container}>
       {/* Header Section */}
@@ -26,7 +29,10 @@ export default function ProfileScreen() {
       </View>
 
       {/* Sign Out Button */}
-      <TouchableOpacity style={styles.signOutButton}>
+      <TouchableOpacity
+        style={styles.signOutButton}
+        onPress={() => router.push('/Home')} // Navigasi ke menu Home
+      >
         <Text style={styles.signOutText}>Sign out</Text>
       </TouchableOpacity>
     </View>

@@ -1,42 +1,46 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
+        <FontAwesome name="bars" size={30} color="#4E342E" style={styles.menuIcon} />
         <Text style={styles.greeting}>Selamat Pagi</Text>
         <FontAwesome name="user-circle" size={40} color="#4E342E" />
       </View>
 
       {/* Feature Buttons */}
       <View style={styles.featuresContainer}>
-        <TouchableOpacity style={styles.featureButton}>
+        <TouchableOpacity style={styles.featureButton} onPress={() => navigation.navigate('Absensi masuk')}>
           <FontAwesome name="sign-in" size={50} color="#4E342E" />
           <Text style={styles.featureText}>Absensi Masuk</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.featureButton}>
+        <TouchableOpacity style={styles.featureButton} onPress={() => navigation.navigate('Absensi keluar')}>
           <FontAwesome name="sign-in" size={50} color="#4E342E" style={{ transform: [{ rotate: '180deg' }] }} />
           <Text style={styles.featureText}>Absensi Keluar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.featureButton}>
+        <TouchableOpacity style={styles.featureButton} onPress={() => navigation.navigate('Dosen')}> 
           <FontAwesome name="users" size={50} color="#4E342E" />
           <Text style={styles.featureText}>Dosen</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.featureButton}>
-          <FontAwesome name="tasks" size={50} color="#4E342E" />
-          <Text style={styles.featureText}>Jadwal</Text>
+        <TouchableOpacity style={styles.featureButton} onPress={() => navigation.navigate('Riwayat absensi')}>
+          <FontAwesome name="history" size={50} color="#4E342E" />
+          <Text style={styles.featureText}>Riwayat Absen</Text>
         </TouchableOpacity>
       </View>
 
       {/* Navigation Bar */}
       <View style={styles.navBar}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <FontAwesome name="home" size={30} color="#4E342E" />
-        </TouchableOpacity>
-        <TouchableOpacity>
+        </TouchableOpacity> 
+        <TouchableOpacity> 
           <FontAwesome name="user" size={30} color="#4E342E" />
         </TouchableOpacity>
       </View>
@@ -57,6 +61,9 @@ const styles = StyleSheet.create({
     padding: 20,
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
+  },
+  menuIcon: {
+    marginRight: 10,
   },
   greeting: {
     fontSize: 24,

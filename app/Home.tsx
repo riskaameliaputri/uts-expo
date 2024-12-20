@@ -39,8 +39,8 @@ export default function HomeScreen() {
 
       {/* Navigation Bar */}
       <View style={styles.navBar}>
-        <TouchableOpacity onPress={() => navigation.navigate('')}>
-          <FontAwesome  name="camera" size={30} color="#4E342E" />
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <FontAwesome name="home" size={30} color="#4E342E" /> {/* Ikon rumah */}
         </TouchableOpacity> 
         <TouchableOpacity onPress={() => navigation.navigate('User')}> 
           <FontAwesome name="user" size={30} color="#4E342E" />

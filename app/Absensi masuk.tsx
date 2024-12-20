@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function AbsensiMasukScreen() {
+  const navigation = useNavigation();
+
   const [npm, setNpm] = useState('');
   const [name, setName] = useState('');
   const [praktikum, setPraktikum] = useState('');
@@ -16,8 +19,9 @@ export default function AbsensiMasukScreen() {
     if (npm && name && praktikum && dosen && ruangan && finalTanggal) {
       Alert.alert(
         'Absensi Berhasil',
-        `NPM: ${npm}\nNama: ${name}\nPraktikum: ${praktikum}\nDosen: ${dosen}\nRuangan/Lab: ${ruangan}\nHari: ${finalTanggal}`
+        `NPM: ${npm}\nNama: ${name}\nPraktikum: ${praktikum}\nDosen: ${dosen}\nRuangan/Lab: ${ruangan}\nTanggal: ${finalTanggal}`
       );
+      // Reset form
       setNpm('');
       setName('');
       setPraktikum('');
@@ -25,6 +29,10 @@ export default function AbsensiMasukScreen() {
       setRuangan('');
       setTanggal(new Date().toLocaleDateString());
       setManualTanggal('');
+      // Navigasi ke Riwayat Absensi dengan data
+      navigation.navigate('RiwayatAbsensi', {
+        absensiData: { npm, name, praktikum, dosen, ruangan, tanggal: finalTanggal },
+      });
     } else {
       Alert.alert('Error', 'Harap isi semua data.');
     }
@@ -33,7 +41,6 @@ export default function AbsensiMasukScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Absensi Masuk</Text>
-
 
       <TextInput
         style={styles.input}
@@ -77,7 +84,7 @@ export default function AbsensiMasukScreen() {
         onChangeText={setRuangan}
       />
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Riwayat absensi')}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Riwayat masuk')}>
         <Text style={styles.buttonText}>Kirim Absensi</Text>
       </TouchableOpacity>
     </View>

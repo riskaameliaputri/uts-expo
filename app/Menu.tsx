@@ -1,31 +1,60 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { FontAwesome } from "@expo/vector-icons";
 
-const MenuScreen = ({ navigation }) => {
-  const menuItems = [
-    { id: '1', title: 'Data Mahasiswa', screen: 'DataMahasiswaScreen' },
-    { id: '2', title: 'Kalender', screen: 'KalenderScreen' },
-    { id: '3', title: 'Pengumuman Liburan', screen: 'PengumumanLiburanScreen' },
-    { id: '4', title: 'Kamera', screen: 'KameraScreen' },
-  ];
-
-  const renderMenuItem = ({ item }) => (
-    <TouchableOpacity 
-      style={styles.menuItem} 
-      onPress={() => navigation.navigate(item.screen)} // Pastikan navigation tersedia
-    >
-      <Text style={styles.menuText}>{item.title}</Text>
-    </TouchableOpacity>
-  );
+const MenuScreen = () => {
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Menu</Text>
-      <FlatList 
-        data={menuItems} 
-        renderItem={renderMenuItem} 
-        keyExtractor={item => item.id} 
-      />
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.title}>Menu Utama</Text>
+      </View>
+
+      {/* Menu Options */}
+      <View style={styles.menuContainer}>
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => navigation.navigate("Datamahasiswa")}
+        >
+          <FontAwesome name="users" size={30} color="#ffffff" />
+          <Text style={styles.menuText}>Data Mahasiswa</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => navigation.navigate("Kamera")}
+        >
+          <FontAwesome name="camera" size={30} color="#ffffff" />
+          <Text style={styles.menuText}>Kamera</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => navigation.navigate("Kalender")}
+        >
+          <FontAwesome name="calendar" size={30} color="#ffffff" />
+          <Text style={styles.menuText}>Kalender</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => navigation.navigate("Info liburan")}
+        >
+          <FontAwesome name="info-circle" size={30} color="#ffffff" />
+          <Text style={styles.menuText}>Info Liburan</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.menuButton}
+          onPress={() => navigation.navigate("Statistik kehadiran")}
+        >
+          <FontAwesome name="bar-chart" size={30} color="#ffffff" />
+          <Text style={styles.menuText}>Statistik Kehadiran</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -33,26 +62,49 @@ const MenuScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f4f9',
+    backgroundColor: "#F3F4F6",
+  },
+  header: {
+    backgroundColor: "#6200ee",
     padding: 20,
+    alignItems: "center",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    elevation: 5,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
+    color: "#ffffff",
+    fontSize: 28,
+    fontWeight: "bold",
   },
-  menuItem: {
-    backgroundColor: '#6200ee',
-    padding: 20,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignItems: 'center',
+  menuContainer: {
+    flex: 1,
+    marginTop: 20,
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+  },
+  menuButton: {
+    backgroundColor: "#6200ee",
+    width: "40%",
+    height: 120,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
   },
   menuText: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontWeight: '600',
+    color: "#ffffff",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 10,
+    textAlign: "center",
   },
 });
 

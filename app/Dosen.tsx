@@ -1,70 +1,57 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, StatusBar } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 const DosenProfileScreen = () => {
   const navigation = useNavigation();
 
-  // Contoh data guru (dosen)
   const dosenData = [
     { id: '1', name: 'Dr. Riana Putri', subject: 'Matematika', status: 'Aktif', schedule: 'Senin & Rabu, 08:00 - 10:00' },
-    { id: '2', name: 'Prof. Budi Santoso', subject: 'Fisika', status: ' Aktif', schedule: 'Selasa & Kamis, 10:00 - 12:00' },
+    { id: '2', name: 'Prof. Budi Santoso', subject: 'Fisika', status: 'Aktif', schedule: 'Selasa & Kamis, 10:00 - 12:00' },
     { id: '3', name: 'Dr. Siti Nurhaliza', subject: 'Kimia', status: 'Aktif', schedule: 'Rabu & Jumat, 13:00 - 15:00' },
     { id: '4', name: 'Dr. Ahmad Fauzi', subject: 'Biologi', status: 'Aktif', schedule: 'Senin & Kamis, 09:00 - 11:00' },
     { id: '5', name: 'Dr. Intan Maharani', subject: 'Ekonomi', status: 'Aktif', schedule: 'Jumat, 14:00 - 16:00' },
-    { id: '6', name: 'Prof. Agus Pratama', subject: 'Sosiologi', status: 'Aktif', schedule: 'Selasa, 08:00 - 10:00' },
-    { id: '7', name: 'Dr. Dewi Kartika', subject: 'Geografi', status: 'Aktif', schedule: 'Kamis, 10:00 - 12:00' },
-    { id: '8', name: 'Dr. Bambang Sutrisno', subject: 'Sejarah', status: ' Aktif', schedule: 'Rabu, 09:00 - 11:00' },
-    { id: '9', name: 'Prof. Ratna Dewi', subject: 'Bahasa Indonesia', status: 'Aktif', schedule: 'Senin & Jumat, 08:00 - 10:00' },
-    { id: '10', name: 'Dr. Joko Widodo', subject: 'Bahasa Inggris', status: 'Aktif', schedule: 'Selasa & Kamis, 13:00 - 15:00' },
-    { id: '11', name: 'Prof. Sri Lestari', subject: 'Fisika', status: 'Aktif', schedule: 'Rabu, 10:00 - 12:00' },
-    { id: '12', name: 'Dr. Hasan Basri', subject: 'Matematika', status: ' Aktif', schedule: 'Kamis, 09:00 - 11:00' },
-    { id: '13', name: 'Dr. Maya Sari', subject: 'Kimia', status: 'Aktif', schedule: 'Jumat, 13:00 - 15:00' },
-    { id: '14', name: 'Prof. Wahyu Putra', subject: 'Teknologi Informasi', status: 'Aktif', schedule: 'Senin & Kamis, 14:00 - 16:00' },
-    { id: '15', name: 'Dr. Dedi Kusnadi', subject: 'Pendidikan', status: ' Aktif', schedule: 'Selasa, 09:00 - 11:00' }
   ];
 
   return (
     <View style={styles.container}>
-      {/* Header Section */}
+      <StatusBar backgroundColor="#2D6A4F" barStyle="light-content" />
+      
+      {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerText}>Dosen</Text>
+        <Text style={styles.headerText}>Profil Dosen</Text>
       </View>
-
-      {/* Profile Icon */}
-      <View style={styles.profileSection}>
-        <View style={styles.iconContainer}>
-          <FontAwesome name="users" size={100} color="#B8D8BA" />
-        </View>
-        <Text style={styles.statusText}>Data Guru</Text>
+      
+      {/* Search Bar */}
+      <View style={styles.searchContainer}>
+        <TextInput placeholder="Cari nama dosen..." style={styles.searchInput} placeholderTextColor="#A0A0A0" />
       </View>
-
-      {/* Input Fields */}
-      <View style={styles.inputSection}>
-        <TextInput placeholder="Cari nama dosen" style={styles.input} />
-      </View>
-
-      {/* List of Dosen */}
+      
+      {/* Dosen List */}
       <FlatList
         data={dosenData}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.detail}>Mata Pelajaran: {item.subject}</Text>
-            <Text style={styles.detail}>Status: {item.status}</Text>
-            <Text style={styles.detail}>Jadwal: {item.schedule}</Text>
+            <FontAwesome name="user-circle" size={40} color="#4CAF50" style={styles.icon} />
+            <View style={styles.cardContent}>
+              <Text style={styles.cardTitle}>{item.name}</Text>
+              <Text style={styles.cardSubtitle}>Mata Kuliah: {item.subject}</Text>
+              <Text style={styles.cardSubtitle}>Status: {item.status}</Text>
+              <Text style={styles.cardSubtitle}>Jadwal: {item.schedule}</Text>
+            </View>
           </View>
         )}
+        contentContainerStyle={styles.listContent}
       />
-
-      {/* Sign Out Button */}
+      
+      {/* Footer */}
       <TouchableOpacity
-        style={styles.signOutButton}
-        onPress={() => navigation.navigate('Home')} // Navigasi ke Home
+        style={styles.footerButton}
+        onPress={() => navigation.navigate('Home')}
       >
-        <Text style={styles.signOutText}>Kembali ke Home</Text>
+        <Text style={styles.footerButtonText}>Kembali ke Home</Text>
       </TouchableOpacity>
     </View>
   );
@@ -73,74 +60,80 @@ const DosenProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F9FA',
+    backgroundColor: '#F5F5F5',
   },
   header: {
-    backgroundColor: '#B8D8BA',
+    backgroundColor: '#2D6A4F',
     padding: 20,
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
     alignItems: 'center',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
   },
   headerText: {
+    color: '#FFF',
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#2D6A4F',
   },
-  profileSection: {
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  iconContainer: {
-    marginBottom: 10,
-  },
-  statusText: {
-    fontSize: 18,
-    color: '#2D6A4F',
-  },
-  inputSection: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
-  input: {
+  searchContainer: {
+    margin: 15,
     backgroundColor: '#FFF',
-    padding: 15,
     borderRadius: 10,
-    marginBottom: 15,
-    borderColor: '#B8D8BA',
-    borderWidth: 1,
+    paddingHorizontal: 15,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+  },
+  searchInput: {
     fontSize: 16,
+    height: 50,
+    color: '#000',
   },
   card: {
     backgroundColor: '#FFF',
-    padding: 15,
+    marginHorizontal: 15,
+    marginBottom: 10,
     borderRadius: 10,
-    marginHorizontal: 20,
-    marginBottom: 15,
-    borderColor: '#E9ECEF',
-    borderWidth: 1,
+    padding: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
-  name: {
+  icon: {
+    marginRight: 15,
+  },
+  cardContent: {
+    flex: 1,
+  },
+  cardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2D6A4F',
+    color: '#333',
   },
-  detail: {
-    fontSize: 16,
-    color: '#495057',
+  cardSubtitle: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 5,
   },
-  signOutButton: {
-    backgroundColor: '#B8D8BA',
+  footerButton: {
+    backgroundColor: '#2D6A4F',
+    margin: 15,
     padding: 15,
     borderRadius: 10,
-    marginHorizontal: 20,
-    marginTop: 20,
     alignItems: 'center',
   },
-  signOutText: {
+  footerButtonText: {
     color: '#FFF',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  listContent: {
+    paddingBottom: 20,
   },
 });
 

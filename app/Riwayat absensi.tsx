@@ -6,37 +6,17 @@ export default function RiwayatAbsensiScreen() {
   const route = useRoute();
   const navigation = useNavigation();
 
-  // Data default dengan status Hadir dan Tidak Hadir
-  const defaultData = [
-    {
-      npm: '2021020100057',
-      name: 'Riska Amelia',
-      praktikum: 'Pemrograman Mobile',
-      dosen: 'Rofiuddin, S.Kom',
-      ruangan: 'Lab 101',
-      tanggal: new Date().toLocaleDateString(),
-      status: 'Hadir', // Status hadir
-    },
-    {
-      npm: '2021020100058',
-      name: 'Risky aditya',
-      praktikum: 'Pemrograman Mobile',
-      dosen: 'Rofiuddin, S.Kom',
-      ruangan: 'Lab 102',
-      tanggal: new Date().toLocaleDateString(),
-      status: 'Tidak Hadir', // Status tidak hadir
-      alasan: 'izin'
-    },
-    {
-      npm: '2021020100059',
-      name: 'Muhammad rayhan',
-      praktikum: 'Sistem Basis Data',
-      dosen: 'Ahmad Nur, S.T.',
-      ruangan: 'Lab 103',
-      tanggal: new Date().toLocaleDateString(),
-      status: 'Hadir', // Status hadir
-    },
-  ];
+  // Data absensi (contoh data diperbanyak)
+  const defaultData = Array.from({ length: 20 }, (_, i) => ({
+    npm: `20210201000${i + 1}`,
+    name: `Nama Mahasiswa ${i + 1}`,
+    praktikum: i % 2 === 0 ? 'Pemrograman Mobile' : 'Sistem Basis Data',
+    dosen: i % 2 === 0 ? 'Rofiuddin, S.Kom' : 'Ahmad Nur, S.T.',
+    ruangan: `Lab 10${i % 3 + 1}`,
+    tanggal: new Date().toLocaleDateString(),
+    status: i % 3 === 0 ? 'Tidak Hadir' : 'Hadir',
+    alasan: i % 3 === 0 ? 'Izin' : '',
+  }));
 
   // Gunakan data dari route jika ada, jika tidak gunakan defaultData
   const absensiData = route.params?.absensiData || defaultData;
@@ -48,42 +28,39 @@ export default function RiwayatAbsensiScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Riwayat Absensi</Text>
-      
-      <Text style={styles.sectionHeader}>Hadir:</Text>
-      <ScrollView style={styles.scrollView}>
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={styles.sectionHeader}>Hadir:</Text>
         {hadirData.map((item, index) => (
           <View key={index} style={styles.item}>
-            <Text>NPM: {item.npm}</Text>
-            <Text>Nama: {item.name}</Text>
-            <Text>Praktikum: {item.praktikum}</Text>
-            <Text>Dosen: {item.dosen}</Text>
-            <Text>Ruangan: {item.ruangan}</Text>
-            <Text>Tanggal: {item.tanggal}</Text>
-            <Text style={styles.status}>Status: Hadir</Text>
+            <Text style={styles.itemTitle}>{item.name}</Text>
+            <Text style={styles.itemSubTitle}>NPM: {item.npm}</Text>
+            <Text style={styles.itemSubTitle}>Praktikum: {item.praktikum}</Text>
+            <Text style={styles.itemSubTitle}>Dosen: {item.dosen}</Text>
+            <Text style={styles.itemSubTitle}>Ruangan: {item.ruangan}</Text>
+            <Text style={styles.itemSubTitle}>Tanggal: {item.tanggal}</Text>
+            <Text style={[styles.status, styles.statusHadir]}>Status: {item.status}</Text>
           </View>
         ))}
-      </ScrollView>
 
-      <Text style={styles.sectionHeader}>Tidak Hadir:</Text>
-      <ScrollView style={styles.scrollView}>
+        <Text style={styles.sectionHeader}>Tidak Hadir:</Text>
         {tidakHadirData.map((item, index) => (
           <View key={index} style={styles.item}>
-            <Text>NPM: {item.npm}</Text>
-            <Text>Nama: {item.name}</Text>
-            <Text>Praktikum: {item.praktikum}</Text>
-            <Text>Dosen: {item.dosen}</Text>
-            <Text>Ruangan: {item.ruangan}</Text>
-            <Text>Tanggal: {item.tanggal}</Text>
-            <Text style={styles.status}>Status: Tidak Hadir</Text>
+            <Text style={styles.itemTitle}>{item.name}</Text>
+            <Text style={styles.itemSubTitle}>NPM: {item.npm}</Text>
+            <Text style={styles.itemSubTitle}>Praktikum: {item.praktikum}</Text>
+            <Text style={styles.itemSubTitle}>Dosen: {item.dosen}</Text>
+            <Text style={styles.itemSubTitle}>Ruangan: {item.ruangan}</Text>
+            <Text style={styles.itemSubTitle}>Tanggal: {item.tanggal}</Text>
+            <Text style={[styles.status, styles.statusTidakHadir]}>Status: {item.status}</Text>
+            {item.alasan && <Text style={styles.itemSubTitle}>Alasan: {item.alasan}</Text>}
           </View>
         ))}
       </ScrollView>
 
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.backButtonText}>Kembali</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.backButtonText}>Kembali ke Home</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -91,51 +68,65 @@ export default function RiwayatAbsensiScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F9FAFB',
     padding: 20,
-    backgroundColor: '#FDF5EC',
   },
   headerText: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 20,
+    color: '#4A4A4A',
     textAlign: 'center',
+    marginBottom: 20,
   },
   sectionHeader: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
-    marginTop: 20,
-    color: '#4E342E',
+    marginVertical: 10,
+    color: '#374151',
   },
   item: {
-    backgroundColor: '#FFF',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
     padding: 15,
-    borderRadius: 10,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
     elevation: 2,
-    marginBottom: 20,
+  },
+  itemTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1F2937',
+    marginBottom: 5,
+  },
+  itemSubTitle: {
+    fontSize: 14,
+    color: '#4B5563',
+    marginBottom: 2,
   },
   status: {
     marginTop: 10,
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#D32F2F', // Merah untuk menandakan status Tidak Hadir
   },
-  scrollView: {
-    marginBottom: 20,
+  statusHadir: {
+    color: '#22C55E', // Hijau untuk status Hadir
   },
-  footer: {
-    marginTop: 'auto', // Tombol berada di bagian bawah layar
-    alignItems: 'center',
+  statusTidakHadir: {
+    color: '#EF4444', // Merah untuk status Tidak Hadir
   },
   backButton: {
-    backgroundColor: '#4E342E',
-    paddingVertical: 20, // Lebih tinggi
-    width: '90%', // Lebih panjang
-    borderRadius: 15, // Lebih membulat
+    backgroundColor: '#6C63FF',
+    paddingVertical: 15,
+    borderRadius: 10,
     alignItems: 'center',
+    marginTop: 20,
   },
   backButtonText: {
-    color: '#FFF',
-    fontSize: 20, // Ukuran teks lebih besar
+    color: '#FFFFFF',
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
